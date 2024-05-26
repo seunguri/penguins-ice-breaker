@@ -3,14 +3,13 @@ import { RigidBody } from '@react-three/rapier';
 import * as THREE from 'three';
 
 const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
-
 const iceMaterial = new THREE.MeshStandardMaterial({ color: 'aqua' });
 
-function BlockStart({ position = [0, 0, 0] }) {
+function BlockStart() {
   const tux = useGLTF('./tux.glb');
 
   return (
-    <group position={position}>
+    <group>
       <mesh
         geometry={boxGeometry}
         material={iceMaterial}
@@ -33,9 +32,5 @@ function BlockStart({ position = [0, 0, 0] }) {
 }
 
 export default function Level() {
-  return (
-    <>
-      <BlockStart />
-    </>
-  );
+  return <BlockStart />;
 }
