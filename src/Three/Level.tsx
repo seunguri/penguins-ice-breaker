@@ -7,7 +7,7 @@ const iceMaterial = new THREE.MeshStandardMaterial({ color: 'aqua' });
 
 function BlockStart() {
   const tux = useGLTF('./tux.glb');
-  const hammer = useGLTF('./models/Hammer.stl');
+  //const hammer = useGLTF('./models/Hammer.stl');
 
   return (
     <group>
@@ -27,7 +27,7 @@ function BlockStart() {
         friction={0}
       >
         <primitive object={tux.scene} scale={0.01} />
-        <primitive object={hammer.scene} scale={1} />
+        {/* <primitive object={hammer.scene} scale={1} /> */}
       </RigidBody>
     </group>
   );
