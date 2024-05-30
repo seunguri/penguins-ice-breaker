@@ -8,7 +8,7 @@ const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 const iceMaterial = new THREE.MeshStandardMaterial({ color: 'aqua' });
 
 function BlockStart() {
-  const tux = useGLTF('./tux.glb');
+  const tux = useGLTF('./models/tux.glb');
   const hammerGeometry = useLoader(STLLoader, './models/hammer.stl');
 
   // 모델의 크기를 조정하기 위한 BoundingBox 계산
