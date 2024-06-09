@@ -1,3 +1,4 @@
+import { Outlines } from '@react-three/drei';
 import { RapierRigidBody, RigidBody } from '@react-three/rapier';
 import { useRef } from 'react';
 import { Vector3 } from 'three';
@@ -20,17 +21,19 @@ export default function Block({ position, args, color, type }: IBlock) {
   /**
    * 현재 컴포넌트의 ref를 이용하여 아래 방향으로 힘을 가하는 함수
    */
-  const downwardForceHandler = () => {
+  const downwardForceHandler = (event: any) => {
+    event.stopPropagation();
     if (ref.current) {
       ref.current.applyImpulse(new Vector3(0, -10000, 0), true);
     }
   };
 
   return (
-    <RigidBody type={type} colliders="hull" friction={1} ref={ref}>
-      <mesh position={position} onClick={downwardForceHandler}>
+    <RigidBody type={type} colliders="hull" friction={1} ref={ref} >
+      <mesh position={position} onClick={downwardForceHandler} >
         <cylinderGeometry args={args} />
         <meshStandardMaterial color={color} />
+        <Outlines thickness={0.1} />
       </mesh>
     </RigidBody>
   );
