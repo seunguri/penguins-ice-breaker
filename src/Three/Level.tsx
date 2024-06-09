@@ -9,6 +9,20 @@ const boxGeometry = new THREE.BoxGeometry(1, 1, 1);
 const iceMaterial = new THREE.MeshStandardMaterial({ color: 'aqua' });
 
 function BlockStart() {
+  const { camera, raycaster, mouse, scene } = useThree();
+
+  // 큐브 텍스처 로드
+  const loader = new THREE.CubeTextureLoader();
+  const environmentMap = loader.load([
+    './environmentMaps/cloud_sky/px.png',
+    './environmentMaps/cloud_sky/nx.png',
+    './environmentMaps/cloud_sky/py.png',
+    './environmentMaps/cloud_sky/ny.png',
+    './environmentMaps/cloud_sky/pz.png',
+    './environmentMaps/cloud_sky/nz.png',
+  ]);
+  scene.background = environmentMap
+
   const tux = useGLTF('./models/tux.glb');
   const hammerGeometry = useLoader(STLLoader, './models/hammer.stl');
 
@@ -18,14 +32,10 @@ function BlockStart() {
   );
   const size = new THREE.Vector3();
   boundingBox.getSize(size);
-  const maxSize = Math.max(size.x, size.y, size.z);
-  const desiredSize = 1; // 원하는 크기
-  const scale = desiredSize / maxSize;
 
   const Hammer: React.FC<{ geometry: THREE.BufferGeometry }> = ({ geometry }) => {
     const meshRef = useRef<THREE.Mesh>(null);
     const [color, setColor] = useState('chocolate');
-    const { camera, raycaster, mouse, scene } = useThree();
 
     useFrame(() => {
       if (meshRef.current) {
