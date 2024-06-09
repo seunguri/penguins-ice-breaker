@@ -22,15 +22,11 @@ function BlockStart() {
   const desiredSize = 1; // 원하는 크기
   const scale = desiredSize / maxSize;
 
-  console.log(tux.scene);
-  console.log(hammerGeometry);
-
   const Hammer: React.FC<{ geometry: THREE.BufferGeometry }> = ({ geometry }) => {
     const meshRef = useRef<THREE.Mesh>(null);
-    const [color, setColor] = useState('gray');
+    const [color, setColor] = useState('chocolate');
     const { camera, raycaster, mouse, scene } = useThree();
 
-    // Rest of the code remains unchanged
     useFrame(() => {
       if (meshRef.current) {
         raycaster.setFromCamera(mouse, camera);
@@ -41,12 +37,8 @@ function BlockStart() {
       }
     });
 
-    const handleClick = () => {
-      setColor(color === 'gray' ? 'red' : 'gray');
-    };
-  
     return (
-      <mesh ref={meshRef} geometry={geometry} onClick={handleClick} scale={scale}>
+      <mesh ref={meshRef} geometry={geometry} scale={0.1}>
         <meshStandardMaterial color={color} />
       </mesh>
     );
@@ -54,26 +46,23 @@ function BlockStart() {
 
   return (
     <group>
-      <mesh
+      {/* <mesh
         geometry={boxGeometry}
         material={iceMaterial}
         position={[0, -0.1, 0]}
         scale={[10, 0.2, 10]}
         receiveShadow
-      />
+      /> */}
 
       <RigidBody
-        type={'fixed'}
+        type={'dynamic'}
         colliders={'hull'}
-        position={[0, 0.2, 0]}
-        restitution={0.2}
-        friction={0}
+        position={[0, -0.5, 0]}
+        mass={1}
       >
-        <primitive object={tux.scene} scale={0.01} />
+        <primitive object={tux.scene} scale={0.15} />
       </RigidBody>
-      <mesh geometry={hammerGeometry} >
-        <meshStandardMaterial color="gray" />
-      </mesh>
+
       <Hammer geometry={hammerGeometry} />
     </group>
   );
