@@ -1,6 +1,7 @@
 import { useGLTF } from '@react-three/drei';
-import { useLoader } from '@react-three/fiber';
+import { useFrame, useLoader, useThree } from '@react-three/fiber';
 import { RigidBody } from '@react-three/rapier';
+import { useRef, useState } from 'react';
 import * as THREE from 'three';
 import { STLLoader } from 'three/examples/jsm/loaders/STLLoader.js';
 
@@ -24,6 +25,33 @@ function BlockStart() {
   console.log(tux.scene);
   console.log(hammerGeometry);
 
+  const Hammer: React.FC<{ geometry: THREE.BufferGeometry }> = ({ geometry }) => {
+    const meshRef = useRef<THREE.Mesh>(null);
+    const [color, setColor] = useState('gray');
+    const { camera, raycaster, mouse, scene } = useThree();
+
+    // Rest of the code remains unchanged
+    useFrame(() => {
+      if (meshRef.current) {
+        raycaster.setFromCamera(mouse, camera);
+        const intersects = raycaster.intersectObjects(scene.children, true);
+        if (intersects.length > 0) {
+          meshRef.current.position.copy(intersects[0].point);
+        }
+      }
+    });
+
+    const handleClick = () => {
+      setColor(color === 'gray' ? 'red' : 'gray');
+    };
+  
+    return (
+      <mesh ref={meshRef} geometry={geometry} onClick={handleClick} scale={scale}>
+        <meshStandardMaterial color={color} />
+      </mesh>
+    );
+  };
+
   return (
     <group>
       <mesh
@@ -43,9 +71,10 @@ function BlockStart() {
       >
         <primitive object={tux.scene} scale={0.01} />
       </RigidBody>
-      <mesh geometry={hammerGeometry} scale={[scale, scale, scale]}>
+      <mesh geometry={hammerGeometry} >
         <meshStandardMaterial color="gray" />
       </mesh>
+      <Hammer geometry={hammerGeometry} />
     </group>
   );
 }
