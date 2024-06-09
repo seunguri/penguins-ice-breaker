@@ -31,8 +31,11 @@ function BlockStart() {
       if (meshRef.current) {
         raycaster.setFromCamera(mouse, camera);
         const intersects = raycaster.intersectObjects(scene.children, true);
-        if (intersects.length > 0) {
-          meshRef.current.position.copy(intersects[0].point);
+        if (intersects.length > 0 && intersects[0].object !== meshRef.current) {
+          const point = intersects[0].point;
+          point.x -= size.x * 0.15;
+          point.y -= size.y * 0.05;
+          meshRef.current.position.copy(point);
         }
       }
     });
