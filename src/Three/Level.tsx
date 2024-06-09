@@ -14,12 +14,12 @@ function BlockStart() {
   // 큐브 텍스처 로드
   const loader = new THREE.CubeTextureLoader();
   const environmentMap = loader.load([
-    './environmentMaps/cloud_sky/px.png',
-    './environmentMaps/cloud_sky/nx.png',
-    './environmentMaps/cloud_sky/py.png',
-    './environmentMaps/cloud_sky/ny.png',
-    './environmentMaps/cloud_sky/pz.png',
-    './environmentMaps/cloud_sky/nz.png',
+    './environmentMaps/nature/px.png',
+    './environmentMaps/nature/nx.png',
+    './environmentMaps/nature/py.png',
+    './environmentMaps/nature/ny.png',
+    './environmentMaps/nature/pz.png',
+    './environmentMaps/nature/nz.png',
   ]);
   scene.background = environmentMap
 

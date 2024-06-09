@@ -32,7 +32,7 @@ export default function Block({ position, args, color, type }: IBlock) {
       <mesh position={position} onClick={downwardForceHandler}>
         <cylinderGeometry args={args} />
         <meshStandardMaterial color={color} />
-        <Outlines thickness={0.1} />
+        {type==="dynamic" && <Outlines thickness={0.1}/>}
       </mesh>
     </RigidBody>
   );
