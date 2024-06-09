@@ -83,15 +83,20 @@ export default function Floor() {
         key={`${type}-${index}`}
         position={position}
         args={[radius, radius, radius * 2, 6]}
-        color={color}
+        color={type === 'dynamic' ? randomColor() : color}
         type={type}
       />
     ));
 
+    const randomColor = () => {
+      const colors = ['ice', 'aqua']
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
   return (
     <group>
-      {createObjects(framePositions, 'blue', 'fixed')}
-      {createObjects(blockPositions, 'gray', 'dynamic')}
+      {createObjects(framePositions, 'gray', 'fixed')}
+      {createObjects(blockPositions, randomColor(), 'dynamic')}
     </group>
   );
 }

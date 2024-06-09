@@ -2,6 +2,8 @@ import ForceController from '@/Components/ForceController';
 import Experience from '@/Three/Experience';
 import { Canvas } from '@react-three/fiber';
 import Head from 'next/head';
+import { Suspense } from 'react';
+
 
 export default function Home() {
   return (
@@ -10,6 +12,7 @@ export default function Home() {
         <title>🐧🧊🔨</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
+      {/* <Suspense fallback={<div style={{backgroundColor: 'red', width:"100vw", height:"100vh"}}>Loading...</div>}> */}
       <ForceController />
       <Canvas
         style={{ cursor: 'none' }}
@@ -23,6 +26,7 @@ export default function Home() {
       >
         <Experience />
       </Canvas>
+      {/* </Suspense> */}
     </>
   );
 }

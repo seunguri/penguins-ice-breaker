@@ -10,7 +10,7 @@ export default function ForceController() {
 
   return (
     <Wrapper>
-      <Label>내 힘: {force}</Label>
+      <Label>힘: {force}</Label>
       <SliderContainer>
         <StyledInput
           type="range"
@@ -63,7 +63,7 @@ const StyledInput = styled.input`
     appearance: none;
     width: 25px;
     height: 25px;
-    background: #4caf50;
+    background: aqua;
     cursor: pointer;
     border-radius: 50%;
   }
